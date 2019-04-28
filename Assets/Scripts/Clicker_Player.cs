@@ -30,6 +30,7 @@ public class Clicker_Player : MonoBehaviour
 
     public float currentEnnemyLife = 10f;
     public float ennemyLife = 10f;
+    public float ennemyDamage = 1f;
 
     private GameObject ennemyToDestroy;
 
@@ -121,7 +122,7 @@ public class Clicker_Player : MonoBehaviour
         {
             nmbrEnemyKilled += 1f;
             currentEnnemyLife = ennemyLife;
-            ennemyLife = ennemyLife * 1.5f;
+            ennemyLife = ennemyLife * 1.15f;
             Destroy(ennemyToDestroy);
             if (nmbrEnemySwitch == 10f)
             {
@@ -129,6 +130,7 @@ public class Clicker_Player : MonoBehaviour
                 GameObject newEnnemyToDestroy = Instantiate(ennemySuzammo);
                 newEnnemyToDestroy.transform.position = transformEnnemy.transform.position;
                 ennemyToDestroy = newEnnemyToDestroy;
+                ennemyDamage = ennemyDamage * 2f;
             }
             else
             {
@@ -165,7 +167,7 @@ public class Clicker_Player : MonoBehaviour
         while (isOK == true)
         {
             yield return new WaitForSeconds(1);
-            lifePlayer -= 1f;
+            lifePlayer -= ennemyDamage;
         }
     }
 }
