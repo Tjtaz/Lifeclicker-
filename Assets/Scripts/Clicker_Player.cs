@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Clicker_Player : MonoBehaviour
 {
@@ -51,8 +52,10 @@ public class Clicker_Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
+        if (lifePlayer == 0f)
+        {
+            SceneManager.LoadScene("EndScene");
+        }
     }
 
     public void OnClickUpgradeAttack()
@@ -74,9 +77,26 @@ public class Clicker_Player : MonoBehaviour
 
     public void OnClickEnemy()
     {
-        lifePlayer = lifePlayer += lifeToAdd;
-        currentEnnemyLife -= attackValue;
-        CheckDead();
+        if (lifePlayer < lifePlayerMax)
+        {
+            ParticlePlay.Singleton2.launchVFX();
+            lifePlayer = lifePlayer += lifeToAdd;
+            currentEnnemyLife -= attackValue;
+            CheckDead();
+        }
+        else if (lifePlayer == lifePlayerMax)
+        {
+            ParticlePlay.Singleton2.launchVFX();
+            currentEnnemyLife -= attackValue;
+            CheckDead();
+        }
+        else if (lifePlayer > lifePlayerMax)
+        {
+            ParticlePlay.Singleton2.launchVFX();
+            lifePlayer = lifePlayerMax;
+            currentEnnemyLife -= attackValue;
+            CheckDead();
+        }
     }
 
     public void CheckDead()
