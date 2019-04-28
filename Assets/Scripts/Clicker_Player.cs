@@ -1,10 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Clicker_Player : MonoBehaviour
 {
+    public Text lifePlayerText;
+    public Text scoreText;
+    public Text priceAttack;
+    public Text priceLife;
+
+    public float scorePlayer = 0f;
+    public float scoreToAdd = 3f;
+
     public float lifePlayer = 50f;
     public float lifePlayerMax = 50f;
     public float lifeToAdd = 3f;
@@ -55,6 +64,10 @@ public class Clicker_Player : MonoBehaviour
         {
             SceneManager.LoadScene("EndScene");
         }
+        lifePlayerText.text = lifePlayer + " / " + lifePlayerMax.ToString();
+        scoreText.text = "Score : " + scorePlayer;
+        priceAttack.text = "- " + attackUpgradeRemove;
+        priceLife.text = "- " + lifeUpgradeRemove;
     }
 
     public void OnClickUpgradeAttack()
@@ -64,6 +77,7 @@ public class Clicker_Player : MonoBehaviour
         attackValue = attackValue * 1.5f;
         lifePlayer -= attackUpgradeRemove;
         attackUpgradeRemove = attackUpgradeRemove * 1.5f;
+        scoreToAdd = scoreToAdd * 1.5f;
     }
 
     public void OnClickUpgradeLife()
@@ -80,12 +94,14 @@ public class Clicker_Player : MonoBehaviour
         {
             ParticlePlay.Singleton2.launchVFX();
             lifePlayer = lifePlayer += lifeToAdd;
+            scorePlayer = scorePlayer += scoreToAdd;
             currentEnnemyLife -= attackValue;
             CheckDead();
         }
         else if (lifePlayer == lifePlayerMax)
         {
             ParticlePlay.Singleton2.launchVFX();
+            scorePlayer = scorePlayer += scoreToAdd;
             currentEnnemyLife -= attackValue;
             CheckDead();
         }
@@ -93,6 +109,7 @@ public class Clicker_Player : MonoBehaviour
         {
             ParticlePlay.Singleton2.launchVFX();
             lifePlayer = lifePlayerMax;
+            scorePlayer = scorePlayer += scoreToAdd;
             currentEnnemyLife -= attackValue;
             CheckDead();
         }
