@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Clicker_Player : MonoBehaviour
 {
-    // 
     public float lifePlayer = 50f;
     public float lifePlayerMax = 50f;
     public float lifeToAdd = 3f;
@@ -52,7 +51,7 @@ public class Clicker_Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lifePlayer == 0f)
+        if (lifePlayer <= 0f)
         {
             SceneManager.LoadScene("EndScene");
         }
@@ -101,7 +100,7 @@ public class Clicker_Player : MonoBehaviour
 
     public void CheckDead()
     {
-        if (currentEnnemyLife == 0f)
+        if (currentEnnemyLife <= 0f)
         {
             nmbrEnemyKilled += 1f;
             currentEnnemyLife = ennemyLife;
