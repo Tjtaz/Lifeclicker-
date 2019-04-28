@@ -9,6 +9,8 @@ public class UI_Manager : MonoBehaviour
     public GameObject pausePanel;
 
     public bool pauseOff;
+    public GameObject buttonJouer;
+    public GameObject endPanel;
 
     // Use this for initialization
     void Start()
@@ -23,6 +25,11 @@ public class UI_Manager : MonoBehaviour
         {
             togglePause();
         }
+    }
+
+    public void activateEndPanel()
+    {
+        endPanel.SetActive(true);
     }
 
     bool togglePause()
@@ -43,7 +50,7 @@ public class UI_Manager : MonoBehaviour
 
     public void OnClickedButtonPlay()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("CHEF_LD");
     }
 
     public void OnClickedButtonQuit()
@@ -56,6 +63,7 @@ public class UI_Manager : MonoBehaviour
     public void OnClickedResume()
     {
         togglePause();
+        buttonJouer.SetActive(false);
     }
 
     // Pause & End Menu
